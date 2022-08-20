@@ -1,0 +1,347 @@
+##########################################################
+###### Window Manager General
+##########################################################
+
+# Define Screens
+set $screen_left HDMI-A-0
+set $screen_right HDMI-A-1
+set $screen_center DisplayPort-4
+
+## Set Modifiers Mod4
+set $mod_main Mod1
+set $alt Control
+
+
+# General Window Behavior & design
+focus_on_window_activation focus
+for_window [class=".*"] border none
+no_focus [window_role="pop-up"]
+for_window [class=".*"] move center
+workspace_auto_back_and_forth no
+floating_maximum_size 1024x768
+
+# specific program behavior
+for_window [class="Nemo"] floating enable
+for_window [class=".hunar"] floating enable
+
+# Autostart applications
+exec --no-startup-id xss-lock --transfer-sleep-lock -- lock --nofork
+exec --no-startup-id picom -b
+exec --no-startup-id xfce4-power-manager
+exec --no-startup-id /usr/lib/xfce4/notifyd/xfce4-notifyd
+exec --no-startup-id xbindkeys
+exec_always --no-startup-id bash -c "sleep2; ~/.config/polybar/launch.sh";
+
+########################################
+### i3Bar Config
+########################################
+
+# Start i3bar to display a workspace bar (plus the system information i3status if available)
+bar {
+    mode invisible
+    i3bar_command i3bar
+    status_command i3status
+	
+    position bottom
+    strip_workspace_numbers yes
+    separator_symbol " "
+    tray_output none
+
+    colors {
+        background #145778
+        statusline #F9FAF9
+        separator  #145778
+
+#                           border  backgr. text
+        focused_workspace  #2298d3 #2298d3 #EEE8D5
+        active_workspace   #2298d3 #ed74e1 #241b2f
+        inactive_workspace #2298d3 #71c7f2 #2f2f2f
+        binding_mode       #2298d3 #2C2C2C #EEE8D5
+        urgent_workspace   #6859ec #6859ec #EEE8D5
+    }
+}
+
+
+
+#############################
+### settings for i3-gaps: ###
+#############################
+
+# Set inner/outer gaps
+gaps inner 14
+gaps outer -2
+
+# Theme colors
+# class                   border  backgr. text    indic.   child_border
+  client.focused          #2298d3 #2298d3 #2f2f2f #EEE8D5
+  client.focused_inactive #71c7f2 #71c7f2 #2f2f2f #EEE8D5
+  client.unfocused        #2298d3 #71c7f2 #2f2f2f #EEE8D5
+  client.urgent           #6859ec #6859ec #2f2f2f #EEE8D5
+  client.placeholder      #2298d3 #2298d3 #2f2f2f #EEE8D5 
+
+  client.background       #ffffff
+
+
+##########################################################
+###### Workspace & Windows
+##########################################################
+
+########################################
+### Workspaces and Workspace Behavior
+########################################
+
+set $ws1 1:Browser
+set $ws2 2:Editor
+set $ws3 3:Chat
+set $ws4 4:Terminal
+set $ws5 5:Games
+set $ws6 6:Image
+set $ws7 7:Util
+set $ws8 8:Music
+set $ws9 9:Email
+set $ws10 10:Misc
+
+# alt workspaces
+set $ws11 11:Video
+set $ws12 12:Terminal
+set $ws13 13:Browser
+
+########################################
+### Workspace <-> Monitor Bindings
+########################################
+
+
+## left Monitor
+workspace $ws1 output $screen_left
+workspace $ws4 output $screen_left
+workspace $ws7 output $screen_left
+workspace $ws8 output $screen_left
+
+## center Monitor
+workspace $ws2 output $screen_center
+workspace $ws5 output $screen_center
+workspace $ws6 output $screen_center
+
+# supplementary WS 
+workspace $ws11 output $screen_center
+workspace $ws12 output $screen_center
+workspace $ws13 output $screen_center
+
+
+## right Monitor
+workspace $ws3 output $screen_right
+workspace $ws9 output $screen_right
+workspace $ws10 output $screen_right
+
+########################################
+### Window <-> Workspace Bindings
+########################################
+
+# Browser Workspace
+assign [class="firefox"] $ws1
+assign [class="Tor.*"] $ws1
+
+# Editor Workspace
+assign [class="Code"] $ws2
+assign [class="UE4Editor"] $ws2
+
+# Chat Workspace
+assign [class="zoom"] $ws3
+assign [class="Telegram.*"] $ws3
+assign [class="discord"] $ws3
+assign [class="instagram.*"] $ws3
+
+# Terminal Workspace
+assign [class="kitty"] $ws4
+assign [class="urxvt"] $ws4
+
+# Games Workspace
+assign [class="Steam"] $ws5
+assign [class=".inecraft.*"] $ws5
+assign [class="SaintsRow3.*"] $ws5
+assign [class="ATLauncher"] $ws5
+
+# Image Workspace
+assign [class="Gimp"] $ws6
+assign [class="nomacs|Image*"] $ws6
+assign [class="krita|Krita"] $ws6
+
+# Util Workspace
+assign [class="VirtualBox Manager"] $ws7
+assign [class="obs"] $ws7
+assign [class="Filezilla"] $ws7
+assign [class="Wireshark"] $ws7
+
+# Music Workspace
+for_window [class="Spotify"] move to workspace $ws8
+for_window [class="Audacity"] move to workspace $ws8
+
+# Email Workspace
+assign [class="Mail|Thunderbird"] $ws9
+
+# Misc Workspace
+assign [class="Pavucontrol"] $ws10
+assign [class=".*lueberry.py"] $ws10
+assign [class=".*arrier"] $ws10
+assign [class=".odem-manager-gui"] $ws10
+assign [class=".lueman.*"] $ws10
+assign [class=".*power-manager.*"] $ws10
+assign [class="Nm-connection.*"] $ws10
+assign [class="pgadmin.*"] $ws10
+
+###### SPECIAL WORKSPACES ######
+
+# Video Workspace 
+assign [class="vlc"] $ws11
+assign [class="mpv"] $ws11
+assign [class="Blender"] $ws11
+assign [class=".hotcut"] $ws11
+assign [class="kdenlive"] $ws11
+
+##########################################################
+###### Keybinds
+##########################################################
+
+########################################
+### General Controls
+########################################
+
+# reload & restart in place
+bindsym $mod_main+Shift+c exec --no-startup-id "source ~/.xprofile"; reload;
+bindsym $mod_main+Shift+r exec --no-startup-id "source ~/.xprofile"; restart; 
+
+# Lock i3
+bindsym $mod_main+l exec --no-startup-id lock
+
+# logout
+bindsym $mod_main+Shift+Escape exec --no-startup-id i3-msg exit
+
+# start rofi
+bindsym $mod_main+space exec --no-startup-id "rofi -show drun"
+
+# start a terminal
+bindsym $mod_main+Return exec kitty
+
+# start thunar
+bindsym $mod_main+Shift+f exec --no-startup-id thunar
+
+# print screen
+
+# take screenshot
+bindsym $mod_main+Shift+minus exec "flameshot gui"
+
+# screen controls
+bindsym $mod_main+F1 exec "zsh -ic left-switch"
+bindsym $mod_main+F2 exec "zsh -ic frame-switch"
+bindsym $mod_main+F3 exec "zsh -ic right-switch"
+
+########################################
+### Media Keys and controls
+########################################
+
+# volume control
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +5%
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -5%
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle
+bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle
+
+## no media keys? (I have a Model M, no fancy media keys :p)
+bindsym $mod_main+KP_Add exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +5%
+bindsym $mod_main+KP_Subtract exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -5%
+bindsym $mod_main+KP_Multiply exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle
+bindsym $mod_main+KP_Divide exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle
+
+# music controls
+## play/pause
+bindsym XF86AudioPause exec --no-startup-id playerctl play-pause
+bindsym XF86AudioPlay exec --no-startup-id playerctl play-pause
+bindsym $mod_main+P exec playerctl play-pause
+
+## next title
+bindsym XF86AudioNext exec playerctl next
+bindsym $mod_main+Prior exec playerctl next
+
+## previous title
+bindsym XF86AudioPrev exec playerctl previous
+bindsym $mod_main+Next exec playerctl previous
+
+## other media keys (because i can)
+bindsym XF86Mail exec --no-startup-id thunderbird
+bindsym XF86Messenger exec --no-startup-id telegram-desktop; exec --no-startup-id discord
+bindsym XF86Explorer exec --no-startup-id thunar
+bindsym XF86Search exec --no-startup-id "rofi -show run"
+
+########################################
+### Workspace Keybinds 
+########################################
+
+# switch to workspace
+bindsym $mod_main+1 workspace $ws1
+bindsym $mod_main+2 workspace $ws2
+bindsym $mod_main+3 workspace $ws3
+bindsym $mod_main+4 workspace $ws4
+bindsym $mod_main+5 workspace $ws5
+bindsym $mod_main+6 workspace $ws6
+bindsym $mod_main+7 workspace $ws7
+bindsym $mod_main+8 workspace $ws8
+bindsym $mod_main+9 workspace $ws9
+bindsym $mod_main+0 workspace $ws10
+bindsym $mod_main+plus workspace $ws11
+
+# switch to supplementary
+bindsym $mod_main+$alt+plus workspace $ws11
+bindsym $mod_main+$alt+1 workspace $ws12
+bindsym $mod_main+$alt+2 workspace $ws13
+
+# move focused container to workspace
+bindsym $mod_main+Shift+1 move container to workspace $ws1; workspace $ws1
+bindsym $mod_main+Shift+2 move container to workspace $ws2; workspace $ws2
+bindsym $mod_main+Shift+3 move container to workspace $ws3; workspace $ws3
+bindsym $mod_main+Shift+4 move container to workspace $ws4; workspace $ws4
+bindsym $mod_main+Shift+5 move container to workspace $ws5; workspace $ws5
+bindsym $mod_main+Shift+6 move container to workspace $ws6; workspace $ws6
+bindsym $mod_main+Shift+7 move container to workspace $ws7; workspace $ws7
+bindsym $mod_main+Shift+8 move container to workspace $ws8; workspace $ws8
+bindsym $mod_main+Shift+9 move container to workspace $ws9; workspace $ws9
+bindsym $mod_main+Shift+0 move container to workspace $ws10; workspace $ws10
+
+# move to supplementary
+bindsym $mod_main+Shift+$alt+plus move container to workspace $ws11; workspace $ws11
+bindsym $mod_main+Shift+$alt+1 move container to workspace $ws12; workspace $ws12
+bindsym $mod_main+Shift+$alt+2 move container to workspace $ws13; workspace $ws13
+
+
+########################################
+### Window  controls
+########################################
+
+# focus window in direction
+bindsym $mod_main+Left focus left
+bindsym $mod_main+Down focus down
+bindsym $mod_main+Up focus up
+bindsym $mod_main+Right focus right
+
+# move window to direction
+bindsym $mod_main+Shift+Left move left
+bindsym $mod_main+Shift+Down move down
+bindsym $mod_main+Shift+Up move up
+bindsym $mod_main+Shift+Right move right
+
+# Window resizing
+bindsym $mod_main+$alt+Left resize shrink width 10 px or 10 ppt
+bindsym $mod_main+$alt+Down resize grow height 10 px or 10 ppt
+bindsym $mod_main+$alt+Up resize shrink height 10 px or 10 ppt
+bindsym $mod_main+$alt+Right resize grow width 10 px or 10 ppt
+
+# toggle fullscreen mode for the focused container
+bindsym $mod_main+f fullscreen toggle
+
+# kill focused window
+bindsym $mod_main+Shift+q kill
+
+#navigate workspaces next / previous
+bindsym $mod_main+Tab workspace next
+bindsym $mod_main+Shift+Tab workspace prev
+
+# change container layout (stacked, tabbed, toggle split)
+bindsym $mod_main+t layout tabbed

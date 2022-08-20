@@ -1,0 +1,3 @@
+export PATH="$HOME/.local/bin:$PATH"
+feh --bg-fill $HOME/Pictures/wallpapers/wallpaper.jpg
+xrandr --output DP-4 --mode 1920x1080 --rate 165

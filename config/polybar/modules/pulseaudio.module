@@ -1,0 +1,24 @@
+[module/pulseaudio]
+type = internal/pulseaudio
+
+format-volume = <label-volume>
+label-volume =  %percentage%%
+label-volume-foreground = ${root.foreground}
+format-volume-underline = #6ef077
+
+format-muted = <label-muted>
+format-muted-underline = #f04371
+label-muted = " %percentage%%"
+label-muted-foreground = #FF0000
+
+bar-volume-muted-foreground = #F00
+bar-volume-width = 11
+bar-volume-foreground-0 = #6ef077
+bar-volume-gradient = false
+bar-volume-indicator = |
+bar-volume-indicator-font = 2
+bar-volume-fill = =
+bar-volume-fill-font = 2
+bar-volume-empty = -
+bar-volume-empty-font = 2
+bar-volume-empty-foreground = ${colors.foreground}

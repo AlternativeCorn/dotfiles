@@ -1,0 +1,112 @@
+ * {
+
+    // color variables
+    normal-background:      rgba(0,0,0,0.0);
+    window-background:      #181414aa;
+    primary-color:          #FA4F55;
+    primary-text-color:     #ffffff;
+    
+    scrollbar-color:        #FA4F5599;
+    scrollbar-handle-color: @primary-color;
+
+    alert-color:            rgba(230, 0, 83,0.6);
+    active-color:           @primary-color;
+
+    select-color:           @primary-color;
+    select-active-color:    rgba(240, 67, 222,0.9);
+
+    // global settings
+    background-color :      @normal-background; // default i want no color
+    text-color :            @primary-text-color;  
+}
+
+window {
+    transparency:       "real"; 
+    background-color :  @normal-background;
+    anchor:             center;
+    location:           center;
+    width:              30%;
+    min-height:         140px;
+    height:             390px;
+    background-color:   @window-background;
+    border-radius:      5px;
+}
+
+mainbox {
+    background-color :  @window-background;
+    padding:    0px;
+    border:     0;
+    children:   [ entry, listview ];
+}
+
+entry {
+    margin:         15px;
+    expand:         false; 
+    padding:        10px;
+    border:         2px;
+    border-color:   @primary-color;
+    border-radius:  5px;
+}
+
+listview {
+    cycle :     true;
+    scrollbar:  true;
+    padding:    5px; 
+    spacing:    5px;
+}
+
+scrollbar {
+    background-color: @scrollbar-color;
+    handle-width:   5px;
+    handle-color: @scrollbar-handle-color;
+    border-radius: 3px;
+}
+
+element {
+    background-color:   @normal-background;
+    padding:            8px;
+    border-radius:      5px;
+}
+
+element-icon {
+    size: 40px;
+}
+
+element-text {
+    background-color: @normal-background;
+    padding: 0px 10px;
+    position: center;
+}
+
+element.normal.normal {
+    background-color: @normal-background;
+}
+
+element.normal.urgent {
+    background-color: @alert-color;
+}
+
+element.normal.active {
+    background-color: @active-color;
+}
+
+element.selected.normal {
+    background-color: @select-color;
+}
+
+element.selected.urgent {
+    background-color: @alert-color;
+}
+
+element.selected.active {
+    background-color: @select-active-color;
+}
+
+
+button {
+    padding: 5px 10px;
+    horizontal-align: 0.5;
+}
+button.selected {
+    background-color: @select-color;
+}

@@ -1,0 +1,15 @@
+; ======= spotify stuff =====
+[module/spotify]
+type = custom/script
+tail = true
+; format
+format = <label>
+format-prefix = " "
+format-underline = #1ED760
+
+; funtionality
+exec = ~/.config/polybar/scripts/spotify_scroll.sh
+click-left = playerctl --player=spotify play-pause
+double-click-left =  ~/.config/polybar/scripts/spotify_focus.sh
+click-right = playerctl --player=spotify next 
+double-click-right = playerctl --player=spotify previous 

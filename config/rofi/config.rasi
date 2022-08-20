@@ -1,0 +1,20 @@
+configuration {
+    modes: "drun";
+    modi: "";
+    font: "DaddyTimeMono Nerd Font 12";
+    show-icons: true;
+    sidebar-mode: false;
+    terminal: "kitty";
+    sort: false;
+    lines: 2;
+    parse-hosts: true;
+    parse-known-hosts: false;
+    scroll-method: 1;
+    window-format: "{c}     {w}";
+    kb-row-up: "Up";        
+    timeout {
+        action: "kb-cancel";
+        delay:  0;
+    }
+}
+@theme "nyarch"

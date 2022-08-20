@@ -1,0 +1,46 @@
+[module/battery-root]
+type = internal/battery
+adapter = ADP1
+full-at = 95
+
+ramp-capacity-0 = " "
+ramp-capacity-1 = " "
+ramp-capacity-2 = " "
+ramp-capacity-3 = " "
+ramp-capacity-4 = " "
+ramp-capacity-foreground = ${colors.foreground}
+
+animation-charging-0 = " " 
+animation-charging-1 = " " 
+animation-charging-2 = " " 
+animation-charging-3 = " " 
+animation-charging-4 = " " 
+animation-charging-foreground = #7df9ff
+animation-charging-framerate = 200
+
+; charging
+format-charging = <animation-charging> <label-charging>
+format-charging-underline = #ffb52a
+
+; discharging
+format-discharging-prefix = ""
+format-discharging = <ramp-capacity> <label-discharging>
+format-discharging-underline = #ffb52a
+
+; full status 
+label-full = %percentage_raw%%
+format-full-prefix = ""
+format-full = "<ramp-capacity> <label-full>"
+format-full-prefix-foreground = ${colors.foreground}
+format-full-underline = #6ef077
+
+[module/battery-one]
+type = internal/battery
+inherit = module/battery-root
+battery = BAT0
+
+[module/battery-two]
+type = internal/battery
+inherit = module/battery-root
+battery = BAT1
+

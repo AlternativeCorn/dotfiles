@@ -1,0 +1,68 @@
+###############
+### ENVVARS ###
+###############
+
+# Path to your oh-my-zsh installation.
+export ZSH="/usr/share/oh-my-zsh"
+
+export PATH="$HOME/bin:$HOME/.local/bin:$PATH:$HOME/.cargo/bin"
+
+######################
+### PLUGIN LOADING ###
+######################
+
+ZSH_THEME="agnoster"
+plugins=(
+    git
+	colorize
+	colored-man-pages
+	ng
+	npm
+	pip
+	python
+	urltools
+	autojump
+	zsh-syntax-highlighting
+)
+
+source $ZSH/oh-my-zsh.sh
+
+# load autojump
+[[ -s $HOME/.autojump/etc/profile.d/autojump.sh ]] && source $HOME/.autojump/etc/profile.d/autojump.sh
+autoload -U compinit && compinit -u
+
+###################
+###   ALIASES   ###
+###################
+###  zsh aliases
+alias zsh-reload="source ~/.zshrc"
+alias zsh-conf="code ~/.zshrc"
+
+### wm config stuff
+alias i3-conf="code ~/.config/i3/"
+alias kitty-conf="code ~/.config/kitty"
+alias rofi-conf="code ~/.config/rofi"
+
+### fun
+alias poweroof="poweroff"
+alias fml="poweroff"
+alias nani="echo 'おまえ は もう しんでいる';echo '何？'"
+
+### general aliases
+alias sudo="sudo "
+alias zip="zip -r "
+alias weather='curl wttr.in/groningen\?qmM1'
+
+######################
+### General  Setup ###
+######################
+
+export DEFAULT_USER=mia
+clear
+
+if [[ "${TERM}" = "xterm-256color" ]];
+then
+    neofetch --ascii
+else
+    neofetch
+fi

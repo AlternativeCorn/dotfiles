@@ -1,0 +1,7 @@
+[module/bluetooth]
+type = custom/script
+exec = ~/.config/polybar/scripts/rofi-bluetooth.sh --status
+format = <label>
+format-underline = #0083fd
+interval = 1
+click-left = ~/.config/polybar/scripts/rofi-bluetooth.sh &

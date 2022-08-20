@@ -1,0 +1,11 @@
+[module/filesystem]
+type = internal/fs
+format-mounted =  <label-mounted>
+format-mounted-underline = #a3f7e4
+label-mounted = %used%
+
+
+; Mountpoints to display
+mount-0 = /
+interval = 60
+fixed-values = true
